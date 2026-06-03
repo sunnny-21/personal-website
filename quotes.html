@@ -11,57 +11,170 @@
   <style>
     :root {
       --bg-image: url('background1.png');
-      --overlay: 0.72;
+      --overlay: 0.75;
     }
 
-    /* Scrollable content area — sits above the fixed bg */
-    .quotes-page {
-      position: relative;
+    html, body {
+      overflow: hidden;
+      height: 100%;
+    }
+
+    /* Wheel container — full viewport, clips overflow */
+    .wheel {
+      position: fixed;
+      inset: 0;
       z-index: 5;
-      min-height: 100vh;
-      padding: 8rem 10vw 6rem;
-      max-width: 900px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
 
-    .page-label {
+    /* Track holds all items, centered in the wheel */
+    .wheel-track {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Each quote item — absolutely stacked, transitioned via JS */
+    .quote-item {
+      position: absolute;
+      width: min(680px, 82vw);
+      text-align: center;
+      padding: 2rem 0;
+      transition:
+        transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity   0.55s ease,
+        filter    0.55s ease;
+      will-change: transform, opacity, filter;
+      cursor: default;
+      user-select: none;
+    }
+
+    /* Intro slide */
+    .quote-intro {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .intro-label {
       font-family: var(--font-arch);
       font-weight: 100;
-      font-size: 0.65rem;
-      letter-spacing: 0.38em;
+      font-size: 0.6rem;
+      letter-spacing: 0.42em;
       text-transform: uppercase;
       color: #a87c45;
-      margin-bottom: 3.5rem;
     }
 
-    /* Each quote block */
-    .quote-block {
-      margin-bottom: 3.8rem;
-      padding-left: 1.6rem;
-      border-left: 1px solid rgba(168, 124, 69, 0.3);
-      transition: border-color 0.3s ease;
+    .intro-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(1rem, 2.2vw, 1.35rem);
+      color: #ccb47f;
+      line-height: 1.75;
+      max-width: 38ch;
     }
 
-    .quote-block:hover {
-      border-color: rgba(168, 124, 69, 0.7);
+    .intro-rule {
+      width: 40px;
+      height: 1px;
+      background: rgba(168, 124, 69, 0.4);
+      margin-top: 0.4rem;
     }
 
+    /* Quote text — large when active */
     .quote-text {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
       font-style: italic;
-      font-size: clamp(1.05rem, 2vw, 1.45rem);
+      font-size: clamp(1.2rem, 2.8vw, 2rem);
       color: #ccb47f;
-      line-height: 1.6;
-      margin-bottom: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 1.4rem;
     }
 
     .quote-attr {
       font-family: var(--font-arch);
       font-weight: 100;
       font-size: 0.6rem;
-      letter-spacing: 0.3em;
+      letter-spacing: 0.35em;
       text-transform: uppercase;
       color: #a87c45;
+      margin-bottom: 0.6rem;
+    }
+
+    .quote-date {
+      font-family: var(--font-arch);
+      font-weight: 100;
+      font-size: 0.5rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(168, 124, 69, 0.45);
+    }
+
+    /* Nav dots — right edge */
+    .wheel-dots {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(168, 124, 69, 0.3);
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .dot.active {
+      background: #a87c45;
+      transform: scale(1.5);
+    }
+
+    /* Scroll hint — fades out after first interaction */
+    .scroll-hint {
+      position: fixed;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      font-family: var(--font-arch);
+      font-weight: 100;
+      font-size: 0.5rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(168, 124, 69, 0.4);
+      transition: opacity 0.6s ease;
+    }
+
+    .scroll-hint.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Arrow blink */
+    .scroll-hint span {
+      display: block;
+      text-align: center;
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0.4; }
+      50%       { opacity: 1; }
     }
   </style>
 </head>
@@ -73,51 +186,171 @@
     <img src="name_transparent.png" alt="Surya Thalli">
   </a>
 
-  <main class="quotes-page">
+  <!-- Dot navigation -->
+  <nav class="wheel-dots" aria-label="Quote navigation" id="dots"></nav>
 
-    <p class="page-label">— Quotes</p>
+  <!-- Scroll hint -->
+  <div class="scroll-hint" id="hint">
+    <span>↓ scroll</span>
+  </div>
 
-    <div class="quote-block">
-      <p class="quote-text">"Learn from yesterday, live for today, hope for tomorrow. The important thing is not to stop questioning."</p>
-      <p class="quote-attr">— Albert Einstein</p>
+  <!-- Wheel -->
+  <div class="wheel" id="wheel">
+    <div class="wheel-track" id="track">
+
+      <!-- Intro slide -->
+      <div class="quote-item" data-index="0">
+        <div class="quote-intro">
+          <p class="intro-label">— Quotes</p>
+          <p class="intro-text">
+            Some sentences stop you mid-thought.<br>
+            They don't tell you anything new —<br>
+            they remind you of what you already knew<br>
+            but hadn't yet found words for.
+          </p>
+          <div class="intro-rule"></div>
+        </div>
+      </div>
+
+      <!-- Quotes -->
+      <div class="quote-item" data-index="1">
+        <p class="quote-text">"Learn from yesterday, live for today, hope for tomorrow. The important thing is not to stop questioning."</p>
+        <p class="quote-attr">— Albert Einstein</p>
+        <p class="quote-date">Added — March 14, 2023</p>
+      </div>
+
+      <div class="quote-item" data-index="2">
+        <p class="quote-text">"Be yourself; everyone else is already taken."</p>
+        <p class="quote-attr">— Oscar Wilde</p>
+        <p class="quote-date">Added — August 7, 2022</p>
+      </div>
+
+      <div class="quote-item" data-index="3">
+        <p class="quote-text">"The two most important days in your life are the day you are born and the day you find out why."</p>
+        <p class="quote-attr">— Mark Twain</p>
+        <p class="quote-date">Added — November 22, 2024</p>
+      </div>
+
+      <div class="quote-item" data-index="4">
+        <p class="quote-text">"If you can do what you do best and be happy, you are further along in life than most people."</p>
+        <p class="quote-attr">— Leonardo DiCaprio</p>
+        <p class="quote-date">Added — February 14, 2023</p>
+      </div>
+
+      <div class="quote-item" data-index="5">
+        <p class="quote-text">"The more you know who you are, and what you want, the less you let things upset you."</p>
+        <p class="quote-attr">— Bob Harris</p>
+        <p class="quote-date">Added — September 9, 2025</p>
+      </div>
+
+      <div class="quote-item" data-index="6">
+        <p class="quote-text">"Get busy living, or get busy dying."</p>
+        <p class="quote-attr">— Andy Dufresne</p>
+        <p class="quote-date">Added — October 31, 2022</p>
+      </div>
+
+      <div class="quote-item" data-index="7">
+        <p class="quote-text">"What you are not changing, you are choosing."</p>
+        <p class="quote-attr">— Laurie Buchanan</p>
+        <p class="quote-date">Added — April 3, 2024</p>
+      </div>
+
+      <div class="quote-item" data-index="8">
+        <p class="quote-text">"If your happiness depends on the actions of others, you're at the mercy of things you cannot control."</p>
+        <p class="quote-attr">— Epictetus</p>
+        <p class="quote-date">Added — January 17, 2026</p>
+      </div>
+
     </div>
+  </div>
 
-    <div class="quote-block">
-      <p class="quote-text">"Be yourself; everyone else is already taken."</p>
-      <p class="quote-attr">— Oscar Wilde</p>
-    </div>
+  <script>
+    const items   = document.querySelectorAll('.quote-item');
+    const dotsNav = document.getElementById('dots');
+    const hint    = document.getElementById('hint');
+    const SPACING = 160; // px between items when stacked
 
-    <div class="quote-block">
-      <p class="quote-text">"The two most important days in your life are the day you are born and the day you find out why."</p>
-      <p class="quote-attr">— Mark Twain</p>
-    </div>
+    let current   = 0;
+    let animating = false;
+    let touched   = false;
 
-    <div class="quote-block">
-      <p class="quote-text">"If you can do what you do best and be happy, you are further along in life than most people."</p>
-      <p class="quote-attr">— Leonardo DiCaprio</p>
-    </div>
+    // Build dots
+    items.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'dot';
+      d.setAttribute('aria-label', `Quote ${i + 1}`);
+      d.addEventListener('click', () => go(i));
+      dotsNav.appendChild(d);
+    });
 
-    <div class="quote-block">
-      <p class="quote-text">"The more you know who you are, and what you want, the less you let things upset you."</p>
-      <p class="quote-attr">— Bob Harris</p>
-    </div>
+    const dots = dotsNav.querySelectorAll('.dot');
 
-    <div class="quote-block">
-      <p class="quote-text">"Get busy living, or get busy dying."</p>
-      <p class="quote-attr">— Andy Dufresne</p>
-    </div>
+    function render() {
+      items.forEach((item, i) => {
+        const offset    = i - current;
+        const absOffset = Math.abs(offset);
+        const y         = offset * SPACING;
+        const scale     = offset === 0 ? 1 : Math.max(0.65, 1 - absOffset * 0.13);
+        const opacity   = offset === 0 ? 1 : Math.max(0.12, 0.55 - absOffset * 0.15);
+        const blur      = offset === 0 ? 0 : Math.min(absOffset * 3, 7);
 
-    <div class="quote-block">
-      <p class="quote-text">"What you are not changing, you are choosing."</p>
-      <p class="quote-attr">— Laurie Buchanan</p>
-    </div>
+        item.style.transform = `translateY(${y}px) scale(${scale})`;
+        item.style.opacity   = opacity;
+        item.style.filter    = `blur(${blur}px)`;
+        item.classList.toggle('active', offset === 0);
+      });
 
-    <div class="quote-block">
-      <p class="quote-text">"If your happiness depends on the actions of others, you're at the mercy of things you cannot control."</p>
-      <p class="quote-attr">— Epictetus</p>
-    </div>
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
 
-  </main>
+    function go(index) {
+      if (animating) return;
+      index = Math.max(0, Math.min(items.length - 1, index));
+      if (index === current) return;
+
+      current   = index;
+      animating = true;
+      render();
+
+      // Dismiss hint on first move
+      if (!touched) {
+        touched = true;
+        hint.classList.add('hidden');
+      }
+
+      setTimeout(() => { animating = false; }, 580);
+    }
+
+    // Mouse wheel
+    let wheelBuffer = 0;
+    window.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      wheelBuffer += e.deltaY;
+      if (Math.abs(wheelBuffer) >= 40) {
+        go(current + (wheelBuffer > 0 ? 1 : -1));
+        wheelBuffer = 0;
+      }
+    }, { passive: false });
+
+    // Touch swipe
+    let touchStartY = 0;
+    window.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    window.addEventListener('touchend', (e) => {
+      const delta = touchStartY - e.changedTouches[0].clientY;
+      if (Math.abs(delta) > 35) go(current + (delta > 0 ? 1 : -1));
+    }, { passive: true });
+
+    // Keyboard
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') go(current + 1);
+      if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  go(current - 1);
+    });
+
+    // Initial render
+    render();
+  </script>
 
 </body>
 </html>
