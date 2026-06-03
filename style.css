@@ -1,0 +1,189 @@
+/* =====================================================
+   Surya Thalli — Personal Site
+   style.css
+   ===================================================== */
+
+
+/* --- Reset --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* --- Design tokens ---
+   One place to change the palette. */
+:root {
+  --black: #0a0a0a;
+  --white: #e8e8e8;
+  --gold:  #c9a84c;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+}
+
+
+/* --- Base --- */
+html, body {
+  height: 100%;
+  background: var(--black);
+  color: var(--white);
+}
+
+
+/* --- Grain texture overlay ---
+   A repeating SVG noise pattern sits on top of everything (z-index 100)
+   but pointer-events:none keeps it from blocking any clicks.
+   It adds the filmic, painterly texture to match the sun image. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.10;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+
+/* --- Hero ---
+   The sun image IS the page background.
+   cover: scales the image to fill the screen; dark edges may crop
+   but the bright central orb (which is near center) stays visible.  */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-image: url('sun.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+
+/* --- Name ---
+   Sits at the exact center of the viewport, over the dark orb.
+   pointer-events:none so the SVG links beneath it stay clickable. */
+.name-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.name-core h1 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  /* clamp: fluid size — smaller on narrow screens, caps at 3.5rem */
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  letter-spacing: 0.18em;
+  color: var(--white);
+  /* Deep shadow helps legibility against the textured orb */
+  text-shadow:
+    0 0 80px rgba(0, 0, 0, 0.95),
+    0 0 20px rgba(0, 0, 0, 0.8),
+    0 2px 8px  rgba(0, 0, 0, 0.9);
+}
+
+
+/* --- SVG Ray Nav ---
+   Positioned to fill the hero exactly.
+   The SVG viewBox centers (0,0) at the middle of the screen,
+   matching where the sun image is centered. */
+.ray-nav {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+}
+
+/* Remove any browser default underline on SVG anchor text */
+.ray-nav a {
+  text-decoration: none;
+}
+
+.ray-link {
+  cursor: pointer;
+}
+
+/* Lines: faint by default */
+.ray-link line {
+  stroke: rgba(232, 232, 232, 0.28);
+  stroke-width: 0.8;
+  stroke-linecap: round;
+  transition: stroke 0.35s ease, stroke-width 0.35s ease;
+}
+
+/* Labels: uppercase monospace, dim */
+.ray-link text {
+  fill: rgba(232, 232, 232, 0.50);
+  font-family: var(--font-mono);
+  font-weight: 300;
+  transition: fill 0.35s ease;
+  user-select: none;
+}
+
+/* Hover / focus: both line and label warm to gold */
+.ray-link:hover line,
+.ray-link:focus line {
+  stroke: var(--gold);
+  stroke-width: 1.4;
+}
+
+.ray-link:hover text,
+.ray-link:focus text {
+  fill: var(--gold);
+}
+
+
+/* --- Mobile nav ---
+   On small/touch screens the radial SVG is hidden.
+   A simple row of links appears at the bottom instead. */
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 767px) {
+
+  .ray-nav {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 1.8rem;
+    position: fixed;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    padding: 0 1rem;
+  }
+
+  .mobile-nav a {
+    font-family: var(--font-mono);
+    font-weight: 300;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(232, 232, 232, 0.55);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    padding: 0.2rem 0;
+  }
+
+  .mobile-nav a:hover,
+  .mobile-nav a:focus {
+    color: var(--gold);
+  }
+
+}

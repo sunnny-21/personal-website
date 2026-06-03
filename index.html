@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Surya Thalli — product designer">
+  <title>Surya Thalli</title>
+
+  <!-- Google Fonts: Cormorant Garamond (display/literary) + IBM Plex Mono (labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=IBM+Plex+Mono:wght@300&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="hero">
+
+    <!--
+      Ray navigation — SVG overlay that covers the full viewport.
+
+      Coordinate system: viewBox is centered at (0,0), which maps to
+      the middle of the screen (and the middle of the sun image).
+      Each ray is an <a> tag containing:
+        - a <line> from near the orb outward along a ray
+        - a <text> label at the far end
+
+      Angles (degrees from 12 o'clock, clockwise):
+        About   ~  20°  upper-right
+        Work    ~  75°  right
+        Gallery ~ 135°  lower-right
+        Quotes  ~ 200°  lower-left
+        Music   ~ 295°  upper-left
+
+      These are deliberately uneven — not a pie chart.
+    -->
+    <svg class="ray-nav"
+         viewBox="-500 -333 1000 666"
+         preserveAspectRatio="xMidYMid slice"
+         role="navigation"
+         aria-label="Site navigation">
+
+      <!-- About — upper right -->
+      <a href="about.html" class="ray-link">
+        <line x1="24"  y1="-66"  x2="68"  y2="-188"/>
+        <text x="79"  y="-212" font-size="11" letter-spacing="2">ABOUT</text>
+      </a>
+
+      <!-- Work — right -->
+      <a href="work.html" class="ray-link">
+        <line x1="68"  y1="-18"  x2="193" y2="-52"/>
+        <text x="205" y="-47"  font-size="11" letter-spacing="2">WORK</text>
+      </a>
+
+      <!-- Gallery — lower right -->
+      <a href="gallery.html" class="ray-link">
+        <line x1="50"  y1="50"   x2="141" y2="141"/>
+        <text x="150" y="159"  font-size="11" letter-spacing="2">GALLERY</text>
+      </a>
+
+      <!-- Quotes — lower left -->
+      <a href="quotes.html" class="ray-link">
+        <line x1="-24" y1="66"   x2="-68" y2="188"/>
+        <text x="-79" y="207"  font-size="11" letter-spacing="2" text-anchor="end">QUOTES</text>
+      </a>
+
+      <!-- Music — upper left -->
+      <a href="music.html" class="ray-link">
+        <line x1="-63" y1="-30"  x2="-181" y2="-85"/>
+        <text x="-193" y="-81" font-size="11" letter-spacing="2" text-anchor="end">MUSIC</text>
+      </a>
+
+    </svg>
+
+    <!-- Name — centered over the dark orb -->
+    <div class="name-core">
+      <h1>Surya Thalli</h1>
+    </div>
+
+  </main>
+
+  <!--
+    Mobile nav — hidden on desktop, shown on small/touch screens.
+    The radial SVG concept is desktop-only; this replaces it simply.
+  -->
+  <nav class="mobile-nav" aria-label="Site navigation">
+    <a href="about.html">About</a>
+    <a href="work.html">Work</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="quotes.html">Quotes</a>
+    <a href="music.html">Music</a>
+  </nav>
+
+</body>
+</html>
