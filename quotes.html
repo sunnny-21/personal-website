@@ -29,6 +29,8 @@
       padding: 5.5rem 10vw 1.8rem;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      text-align: center;
       gap: 0.9rem;
       pointer-events: none;
     }
@@ -277,7 +279,7 @@
     const items   = document.querySelectorAll('.quote-item');
     const dotsNav = document.getElementById('dots');
     const hint    = document.getElementById('hint');
-    const SPACING = 160; // px between items when stacked
+    const SPACING = 300; // px between items when stacked
 
     let current   = 0;
     let animating = false;
