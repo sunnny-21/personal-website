@@ -6,17 +6,63 @@
   <title>Quotes — Surya Thalli</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300&family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="pages.css">
   <style>
-    /* background1 — dark warm gold dust. Contemplative, literary feel. */
     :root {
       --bg-image: url('background1.png');
-      --overlay: 0.68;
+      --overlay: 0.72;
     }
-    .page-label { color: #a87c45; }
-    .page-title { color: #ccb47f; }
-    .page-note  { color: #a87c45; }
+
+    /* Scrollable content area — sits above the fixed bg */
+    .quotes-page {
+      position: relative;
+      z-index: 5;
+      min-height: 100vh;
+      padding: 8rem 10vw 6rem;
+      max-width: 900px;
+    }
+
+    .page-label {
+      font-family: var(--font-arch);
+      font-weight: 100;
+      font-size: 0.65rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: #a87c45;
+      margin-bottom: 3.5rem;
+    }
+
+    /* Each quote block */
+    .quote-block {
+      margin-bottom: 3.8rem;
+      padding-left: 1.6rem;
+      border-left: 1px solid rgba(168, 124, 69, 0.3);
+      transition: border-color 0.3s ease;
+    }
+
+    .quote-block:hover {
+      border-color: rgba(168, 124, 69, 0.7);
+    }
+
+    .quote-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(1.05rem, 2vw, 1.45rem);
+      color: #ccb47f;
+      line-height: 1.6;
+      margin-bottom: 0.9rem;
+    }
+
+    .quote-attr {
+      font-family: var(--font-arch);
+      font-weight: 100;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #a87c45;
+    }
   </style>
 </head>
 <body>
@@ -27,11 +73,50 @@
     <img src="name_transparent.png" alt="Surya Thalli">
   </a>
 
-  <main class="page">
+  <main class="quotes-page">
+
     <p class="page-label">— Quotes</p>
-    <h1 class="page-title">Quotes</h1>
-    <div class="page-rule"></div>
-    <p class="page-note">Words worth keeping — coming soon</p>
+
+    <div class="quote-block">
+      <p class="quote-text">"Learn from yesterday, live for today, hope for tomorrow. The important thing is not to stop questioning."</p>
+      <p class="quote-attr">— Albert Einstein</p>
+    </div>
+
+    <div class="quote-block">
+      <p class="quote-text">"Be yourself; everyone else is already taken."</p>
+      <p class="quote-attr">— Oscar Wilde</p>
+    </div>
+
+    <div class="quote-block">
+      <p class="quote-text">"The two most important days in your life are the day you are born and the day you find out why."</p>
+      <p class="quote-attr">— Mark Twain</p>
+    </div>
+
+    <div class="quote-block">
+      <p class="quote-text">"If you can do what you do best and be happy, you are further along in life than most people."</p>
+      <p class="quote-attr">— Leonardo DiCaprio</p>
+    </div>
+
+    <div class="quote-block">
+      <p class="quote-text">"The more you know who you are, and what you want, the less you let things upset you."</p>
+      <p class="quote-attr">— Bob Harris</p>
+    </div>
+
+    <div class="quote-block">
+      <p class="quote-text">"Get busy living, or get busy dying."</p>
+      <p class="quote-attr">— Andy Dufresne</p>
+    </div>
+
+    <div class="quote-block">
+      <p class="quote-text">"What you are not changing, you are choosing."</p>
+      <p class="quote-attr">— Laurie Buchanan</p>
+    </div>
+
+    <div class="quote-block">
+      <p class="quote-text">"If your happiness depends on the actions of others, you're at the mercy of things you cannot control."</p>
+      <p class="quote-attr">— Epictetus</p>
+    </div>
+
   </main>
 
 </body>
