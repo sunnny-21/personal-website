@@ -9,40 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="pages.css">
   <style>
-
-    body {
-      background: #0d0910;
+    /* aboutme.png — bright blue/orange sun. Heavy overlay to pull it into the dark palette. */
+    :root {
+      --bg-image: url('aboutme.png');
+      --overlay: 0.78;
     }
 
-    /* Full-screen background image */
-    .bg {
-      position: fixed;
-      inset: 0;
-      background-image: url('background1.png');
-      background-size: cover;
-      background-position: center center;
-      z-index: 0;
-    }
-
-    /* Dark overlay — dims the image so text is legible
-       Tweak the opacity here: lower = more image, higher = more dark */
-    .bg::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(8, 7, 3, 0.82);
-    }
-
-    /* Grain sits above the bg but below content */
-    body::after {
-      z-index: 2;
-    }
-
-    .back-home {
-      z-index: 10;
-    }
-
-    /* About content */
     .about {
       position: relative;
       z-index: 5;
@@ -60,11 +32,10 @@
       font-size: 0.65rem;
       letter-spacing: 0.38em;
       text-transform: uppercase;
-      color: var(--accent-dim);
+      color: #b89556;
       margin-bottom: 3rem;
     }
 
-    /* Opening line — lightest gold from the image (#ccb47f → a touch lighter) */
     .about-lead {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
@@ -76,7 +47,6 @@
       max-width: 26ch;
     }
 
-    /* Body copy — mid gold #c3a264 */
     .about-body {
       display: flex;
       flex-direction: column;
@@ -93,7 +63,6 @@
       max-width: 52ch;
     }
 
-    /* Closing line — deeper gold #b89556 */
     .about-close {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
@@ -102,12 +71,10 @@
       color: #b89556;
       margin-top: 3rem;
     }
-
   </style>
 </head>
 <body>
 
-  <!-- Painted background -->
   <div class="bg"></div>
 
   <a href="index.html" class="back-home" aria-label="Return home">

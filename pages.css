@@ -22,11 +22,34 @@
 }
 
 
-/* --- Base ---
-   Background color is set per-page via an inline <style> block. */
+/* --- Base --- */
 html, body {
   height: 100%;
   color: var(--accent);
+}
+
+/* --- Full-screen background image ---
+   Each page sets --bg-image and --overlay in its own <style> block. */
+.bg {
+  position: fixed;
+  inset: 0;
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center center;
+  z-index: 0;
+}
+
+/* Dark overlay — opacity controlled per page via --overlay */
+.bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 7, 3, var(--overlay, 0.70));
+}
+
+/* Grain above bg, below content */
+body::after {
+  z-index: 2;
 }
 
 
@@ -46,6 +69,7 @@ body::after {
 /* --- Back-home name link ---
    Painted name image, top-left, returns to index.html on click. */
 .back-home {
+  z-index: 10;
   position: fixed;
   top: 1.2rem;
   left: 1.8rem;
@@ -67,9 +91,10 @@ body::after {
 }
 
 
-/* --- Page layout ---
-   Centers the title block vertically and horizontally. */
+/* --- Page layout --- */
 .page {
+  position: relative;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -9,11 +9,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300&family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="pages.css">
   <style>
-    /* Dark sepia-black — like an aged photograph */
-    body { background: #0d0b07; }
+    /* background4 — dark textured monochrome with cream dust. Already very dark. */
+    :root {
+      --bg-image: url('background4.png');
+      --overlay: 0.55;
+    }
+    .page-label { color: #b89556; }
+    .page-title { color: #d4bc8a; }
+    .page-note  { color: #b89556; }
   </style>
 </head>
 <body>
+
+  <div class="bg"></div>
 
   <a href="index.html" class="back-home" aria-label="Return home">
     <img src="name_transparent.png" alt="Surya Thalli">
