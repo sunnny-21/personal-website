@@ -1,26 +1,29 @@
 (function () {
-  // Inject the flash overlay
-  const flash = document.createElement('div');
-  flash.style.cssText = [
+  // Don't run on the home page — it has its own eclipse animation
+  if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) return;
+
+  // Inject a simple dark overlay
+  const veil = document.createElement('div');
+  veil.style.cssText = [
     'position:fixed',
     'inset:0',
     'z-index:999',
     'pointer-events:none',
-    'background:radial-gradient(circle at 50% 50%, rgba(255,248,220,0.92) 0%, rgba(201,168,76,0.55) 28%, rgba(8,7,3,0.85) 68%, #080703 100%)',
+    'background:#080703',
     'opacity:1',
     'transition:none',
   ].join(';');
-  document.body.appendChild(flash);
+  document.body.appendChild(veil);
 
-  // Entry: start fully flashed, then fade out over ~1.4s
+  // Entry: fade out over 0.5s
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      flash.style.transition = 'opacity 1.4s ease-out';
-      flash.style.opacity = '0';
+      veil.style.transition = 'opacity 0.5s ease-out';
+      veil.style.opacity = '0';
     });
   });
 
-  // Exit: intercept local link clicks — flash in, then navigate
+  // Exit: fade in over 0.3s, then navigate
   document.addEventListener('click', (e) => {
     const link = e.target.closest('a[href]');
     if (!link) return;
@@ -28,8 +31,8 @@
     if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto')) return;
 
     e.preventDefault();
-    flash.style.transition = 'opacity 0.38s ease-in';
-    flash.style.opacity = '1';
-    setTimeout(() => { window.location.href = href; }, 380);
+    veil.style.transition = 'opacity 0.3s ease-in';
+    veil.style.opacity = '1';
+    setTimeout(() => { window.location.href = href; }, 300);
   });
 })();
