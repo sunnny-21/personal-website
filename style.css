@@ -114,14 +114,14 @@ body::after {
 
 .ray-link {
   cursor: pointer;
+  transition: opacity 0.3s ease;
 }
 
-/* Lines: black by default */
+/* Lines: black */
 .ray-link line {
   stroke: rgba(10, 10, 10, 0.75);
   stroke-width: 0.8;
   stroke-linecap: round;
-  transition: stroke 0.35s ease, stroke-width 0.35s ease;
 }
 
 /* Labels: uppercase monospace, black */
@@ -129,21 +129,13 @@ body::after {
   fill: var(--black);
   font-family: var(--font-mono);
   font-weight: 300;
-  transition: fill 0.35s ease;
   user-select: none;
 }
 
-/* Hover / focus: line darkens, label goes bold dark grey */
-.ray-link:hover line,
-.ray-link:focus line {
-  stroke: #333333;
-  stroke-width: 1.4;
-}
-
-.ray-link:hover text,
-.ray-link:focus text {
-  fill: #333333;
-  font-weight: 700;
+/* Hover: same simple opacity fade as the name image */
+.ray-link:hover,
+.ray-link:focus {
+  opacity: 0.6;
 }
 
 
