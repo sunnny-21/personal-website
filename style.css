@@ -47,26 +47,73 @@ body::after {
 }
 
 
-/* --- Hero ---
-   The sun image IS the page background.
-   cover: scales the image to fill the screen; dark edges may crop
-   but the bright central orb (which is near center) stays visible.  */
+/* --- Hero --- */
 .hero {
   position: relative;
   width: 100%;
   height: 100vh;
+  overflow: hidden;
+  background: var(--black);
+}
+
+/* Background image — slightly oversized so the clip-path circle
+   can grow without black edges peeking at the border.
+   The clip-path origin (55% 43%) maps to the orb's actual position
+   inside this element's coordinate space. */
+.hero-bg {
+  position: absolute;
+  inset: -4%;
   background-image: url('sun.png');
   background-size: cover;
   background-position: center center;
-  background-repeat: no-repeat;
-  overflow: hidden;
+  animation: eclipseReveal 3.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Eclipse reveal:
+   - starts as a single point of light at the orb
+   - expands outward like an eye opening / eclipse uncovering
+   - blur dissolves as it opens — like a camera pulling focus */
+@keyframes eclipseReveal {
+  0% {
+    clip-path: circle(0% at 55% 43%);
+    filter: blur(30px) brightness(8);
+  }
+  20% {
+    filter: blur(14px) brightness(4);
+  }
+  45% {
+    filter: blur(3px) brightness(1.8);
+  }
+  70% {
+    filter: blur(0px) brightness(1.2);
+  }
+  100% {
+    clip-path: circle(150% at 55% 43%);
+    filter: blur(0px) brightness(1);
+  }
+}
+
+
+/* --- Shared keyframes --- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes nameReveal {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
 }
 
 
 /* --- Name ---
-   Painted image in top-left corner; links back to home.
-   The transparent PNG blends naturally over the dark background. */
+   Drifts up gently from darkness after the orb has opened. */
 .name-core {
+  animation: nameReveal 1.2s ease-out 1.4s both;
   position: absolute;
   top: 1.2rem;
   left: 1.8rem;
@@ -96,9 +143,7 @@ body::after {
 
 
 /* --- SVG Ray Nav ---
-   Positioned to fill the hero exactly.
-   The SVG viewBox centers (0,0) at the middle of the screen,
-   matching where the sun image is centered. */
+   No animation on the container — lines and text animate individually. */
 .ray-nav {
   position: absolute;
   inset: 0;
@@ -117,20 +162,38 @@ body::after {
   transition: opacity 0.3s ease;
 }
 
-/* Lines: black */
+/* Lines: draw themselves outward from the orb.
+   dasharray = longer than any line; dashoffset starts full (invisible)
+   and animates to 0 (fully drawn). Staggered per ray below. */
 .ray-link line {
   stroke: rgba(10, 10, 10, 0.75);
   stroke-width: 0.8;
   stroke-linecap: round;
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+  animation: drawLine 0.9s ease-out both;
 }
 
-/* Labels: uppercase monospace, black */
+.ray-nav a:nth-child(1) line { animation-delay: 1.5s; }
+.ray-nav a:nth-child(2) line { animation-delay: 1.65s; }
+.ray-nav a:nth-child(3) line { animation-delay: 1.8s; }
+.ray-nav a:nth-child(4) line { animation-delay: 1.95s; }
+.ray-nav a:nth-child(5) line { animation-delay: 2.1s; }
+
+/* Labels: fade in just after their line finishes drawing */
 .ray-link text {
   fill: var(--black);
   font-family: var(--font-mono);
   font-weight: 300;
   user-select: none;
+  animation: fadeIn 0.7s ease-out both;
 }
+
+.ray-nav a:nth-child(1) text { animation-delay: 2.1s; }
+.ray-nav a:nth-child(2) text { animation-delay: 2.2s; }
+.ray-nav a:nth-child(3) text { animation-delay: 2.3s; }
+.ray-nav a:nth-child(4) text { animation-delay: 2.4s; }
+.ray-nav a:nth-child(5) text { animation-delay: 2.5s; }
 
 /* Hover: same simple opacity fade as the name image */
 .ray-link:hover,
