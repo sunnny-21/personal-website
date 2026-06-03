@@ -64,12 +64,12 @@ body::after {
 
 
 /* --- Name ---
-   Top-left corner, in gold. The <a> inside inherits styling so it
-   looks identical whether it's a link or plain text. */
+   Painted image in top-left corner; links back to home.
+   The transparent PNG blends naturally over the dark background. */
 .name-core {
   position: absolute;
-  top: 2rem;
-  left: 2.5rem;
+  top: 1.2rem;
+  left: 1.8rem;
   z-index: 10;
   pointer-events: none;
 }
@@ -77,17 +77,21 @@ body::after {
 .name-core a {
   text-decoration: none;
   pointer-events: all;
+  display: block;
 }
 
-.name-core h1 {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
-  letter-spacing: 0.18em;
-  color: var(--gold);
-  text-shadow:
-    0 0 40px rgba(0, 0, 0, 0.8),
-    0 2px 6px  rgba(0, 0, 0, 0.7);
+.name-img {
+  /* Width controls how large the name appears — adjust freely */
+  width: clamp(180px, 22vw, 300px);
+  height: auto;
+  display: block;
+  /* Soft shadow helps it sit into the dark/textured background */
+  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.7));
+  transition: opacity 0.3s ease;
+}
+
+.name-core a:hover .name-img {
+  opacity: 0.8;
 }
 
 
