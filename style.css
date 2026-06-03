@@ -64,14 +64,19 @@ body::after {
 
 
 /* --- Name ---
-   Top-left corner, in gold.
-   pointer-events:none so the SVG links beneath it stay clickable. */
+   Top-left corner, in gold. The <a> inside inherits styling so it
+   looks identical whether it's a link or plain text. */
 .name-core {
   position: absolute;
   top: 2rem;
   left: 2.5rem;
   z-index: 10;
   pointer-events: none;
+}
+
+.name-core a {
+  text-decoration: none;
+  pointer-events: all;
 }
 
 .name-core h1 {
