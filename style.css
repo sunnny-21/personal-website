@@ -107,9 +107,9 @@ body::after {
   cursor: pointer;
 }
 
-/* Lines: faint by default */
+/* Lines: black by default */
 .ray-link line {
-  stroke: rgba(232, 232, 232, 0.28);
+  stroke: rgba(10, 10, 10, 0.75);
   stroke-width: 0.8;
   stroke-linecap: round;
   transition: stroke 0.35s ease, stroke-width 0.35s ease;
