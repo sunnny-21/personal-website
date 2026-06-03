@@ -64,14 +64,12 @@ body::after {
 
 
 /* --- Name ---
-   Sits at the exact center of the viewport, over the dark orb.
+   Top-left corner, in gold.
    pointer-events:none so the SVG links beneath it stay clickable. */
 .name-core {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+  top: 2rem;
+  left: 2.5rem;
   z-index: 10;
   pointer-events: none;
 }
@@ -79,15 +77,12 @@ body::after {
 .name-core h1 {
   font-family: var(--font-display);
   font-weight: 300;
-  /* clamp: fluid size — smaller on narrow screens, caps at 3.5rem */
-  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
   letter-spacing: 0.18em;
-  color: var(--white);
-  /* Deep shadow helps legibility against the textured orb */
+  color: var(--gold);
   text-shadow:
-    0 0 80px rgba(0, 0, 0, 0.95),
-    0 0 20px rgba(0, 0, 0, 0.8),
-    0 2px 8px  rgba(0, 0, 0, 0.9);
+    0 0 40px rgba(0, 0, 0, 0.8),
+    0 2px 6px  rgba(0, 0, 0, 0.7);
 }
 
 
@@ -120,9 +115,9 @@ body::after {
   transition: stroke 0.35s ease, stroke-width 0.35s ease;
 }
 
-/* Labels: uppercase monospace, dim */
+/* Labels: uppercase monospace, black */
 .ray-link text {
-  fill: rgba(232, 232, 232, 0.50);
+  fill: var(--black);
   font-family: var(--font-mono);
   font-weight: 300;
   transition: fill 0.35s ease;
