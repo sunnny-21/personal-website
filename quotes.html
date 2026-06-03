@@ -19,15 +19,59 @@
       height: 100%;
     }
 
-    /* Wheel container — full viewport, clips overflow */
+    /* Static intro — pinned top, above the wheel */
+    .quotes-intro {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      padding: 5.5rem 10vw 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      pointer-events: none;
+    }
+
+    .intro-label {
+      font-family: var(--font-arch);
+      font-weight: 100;
+      font-size: 0.6rem;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: #a87c45;
+    }
+
+    .intro-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+      color: #b89a6a;
+      line-height: 1.75;
+    }
+
+    .intro-rule {
+      width: 36px;
+      height: 1px;
+      background: rgba(168, 124, 69, 0.35);
+      margin-top: 0.2rem;
+    }
+
+    /* Wheel container — sits below the intro */
     .wheel {
       position: fixed;
-      inset: 0;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
       z-index: 5;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      /* Push the center point down slightly to account for intro header */
+      padding-top: 10rem;
     }
 
     /* Track holds all items, centered in the wheel */
@@ -54,39 +98,6 @@
       user-select: none;
     }
 
-    /* Intro slide */
-    .quote-intro {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.2rem;
-    }
-
-    .intro-label {
-      font-family: var(--font-arch);
-      font-weight: 100;
-      font-size: 0.6rem;
-      letter-spacing: 0.42em;
-      text-transform: uppercase;
-      color: #a87c45;
-    }
-
-    .intro-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      font-style: italic;
-      font-size: clamp(1rem, 2.2vw, 1.35rem);
-      color: #ccb47f;
-      line-height: 1.75;
-      max-width: 38ch;
-    }
-
-    .intro-rule {
-      width: 40px;
-      height: 1px;
-      background: rgba(168, 124, 69, 0.4);
-      margin-top: 0.4rem;
-    }
 
     /* Quote text — large when active */
     .quote-text {
@@ -186,6 +197,18 @@
     <img src="name_transparent.png" alt="Surya Thalli">
   </a>
 
+  <!-- Static intro header -->
+  <div class="quotes-intro">
+    <p class="intro-label">— Quotes</p>
+    <p class="intro-text">
+      Some sentences stop you mid-thought.<br>
+      They don't tell you anything new —<br>
+      they remind you of what you already knew<br>
+      but hadn't yet found words for.
+    </p>
+    <div class="intro-rule"></div>
+  </div>
+
   <!-- Dot navigation -->
   <nav class="wheel-dots" aria-label="Quote navigation" id="dots"></nav>
 
@@ -197,20 +220,6 @@
   <!-- Wheel -->
   <div class="wheel" id="wheel">
     <div class="wheel-track" id="track">
-
-      <!-- Intro slide -->
-      <div class="quote-item" data-index="0">
-        <div class="quote-intro">
-          <p class="intro-label">— Quotes</p>
-          <p class="intro-text">
-            Some sentences stop you mid-thought.<br>
-            They don't tell you anything new —<br>
-            they remind you of what you already knew<br>
-            but hadn't yet found words for.
-          </p>
-          <div class="intro-rule"></div>
-        </div>
-      </div>
 
       <!-- Quotes -->
       <div class="quote-item" data-index="1">
