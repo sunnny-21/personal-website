@@ -124,16 +124,17 @@ body::after {
   user-select: none;
 }
 
-/* Hover / focus: both line and label warm to gold */
+/* Hover / focus: line darkens, label goes bold dark grey */
 .ray-link:hover line,
 .ray-link:focus line {
-  stroke: var(--gold);
+  stroke: #333333;
   stroke-width: 1.4;
 }
 
 .ray-link:hover text,
 .ray-link:focus text {
-  fill: var(--gold);
+  fill: #333333;
+  font-weight: 700;
 }
 
 
