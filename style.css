@@ -233,6 +233,7 @@ body::after {
     right: 0;
     z-index: 20;
     padding: 0 1rem;
+    animation: fadeIn 0.7s ease-out 2.1s both;
   }
 
   .mobile-nav a {
