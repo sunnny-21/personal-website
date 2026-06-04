@@ -152,6 +152,18 @@ body::after {
 }
 
 
+/* --- Mobile font weight boost ---
+   Raleway 300 is too thin on small screens — bump key elements to 400. */
+@media (max-width: 767px) {
+  .page-label,
+  .page-title,
+  .page-note,
+  .page-rule + * {
+    font-weight: 400;
+  }
+}
+
+
 /* --- Contact bar ---
    Fixed at the bottom of every sub-page. z-index 101 puts it above the
    grain overlay (z-index 100) so it's always legible. */

@@ -208,6 +208,17 @@
       .scroll-hint span { animation: none; }
       .quote-item { transition: opacity 0.2s ease; }
     }
+
+    @media (max-width: 767px) {
+      /* Push intro down so it clears the name image */
+      .quotes-intro { padding-top: 8.5rem; }
+      /* Boost font weights for readability */
+      .intro-label  { font-weight: 400; }
+      .intro-text   { font-weight: 400; font-size: 0.95rem; }
+      .quote-text   { font-size: clamp(1.4rem, 5.5vw, 2.2rem); }
+      .quote-attr   { font-weight: 400; }
+      .quote-date   { font-weight: 400; }
+    }
   </style>
 </head>
 <body>

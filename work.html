@@ -173,6 +173,22 @@
       text-transform: uppercase;
       color: #b89556;
     }
+
+    @media (max-width: 767px) {
+      .page-label,
+      .work-intro,
+      .linkedin-link,
+      .tl-era,
+      .tl-date,
+      .tl-title,
+      .tl-company,
+      .tl-divider-label { font-weight: 400; }
+
+      .tl-title    { font-size: 1rem; }
+      .tl-company  { font-size: 0.85rem; }
+      .tl-date     { font-size: 0.7rem; }
+      .work-intro  { font-size: clamp(1rem, 3.5vw, 1.2rem); }
+    }
   </style>
 </head>
 <body>
@@ -194,7 +210,7 @@
     </p>
 
     <a href="https://linkedin.com/in/sthalli/?skipRedirect=true" target="_blank" rel="noopener" class="linkedin-link">
-      LinkedIn Profile ↗
+      LinkedIn Profile
     </a>
 
     <div class="timeline">
