@@ -18,7 +18,7 @@
   --accent:     #e2b84a;   /* brighter yellow for page titles */
   --accent-dim: rgba(226, 184, 74, 0.45);
   --font-display: 'Cormorant Garamond', serif;
-  --font-arch:    'Josefin Sans', sans-serif;
+  --font-arch:    'Raleway', sans-serif;
 }
 
 
@@ -46,12 +46,6 @@ html, body {
   inset: 0;
   background: rgba(8, 7, 3, var(--overlay, 0.70));
 }
-
-/* Grain above bg, below content */
-body::after {
-  z-index: 2;
-}
-
 
 /* --- Grain texture overlay --- */
 body::after {
@@ -149,4 +143,46 @@ body::after {
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--accent-dim);
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+
+/* --- Contact bar ---
+   Fixed at the bottom of every sub-page. z-index 101 puts it above the
+   grain overlay (z-index 100) so it's always legible. */
+.contact-bar {
+  position: fixed;
+  bottom: 1.6rem;
+  left: 2rem;
+  z-index: 101;
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  pointer-events: auto;
+  white-space: nowrap;
+  animation: fadeIn 0.7s ease-out 0.5s both;
+}
+
+.contact-bar a {
+  color: #c9a84c;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  line-height: 0;
+  transition: color 0.3s ease;
+}
+
+.contact-bar a svg {
+  width: 24px;
+  height: 24px;
+}
+
+.contact-bar a:hover,
+.contact-bar a:focus {
+  color: #e2c96a;
 }

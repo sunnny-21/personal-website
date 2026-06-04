@@ -63,7 +63,7 @@ body::after {
 .hero-bg {
   position: absolute;
   inset: -4%;
-  background-image: url('sun.png');
+  background-image: url('sun.jpg');
   background-size: cover;
   background-position: center center;
   animation: eclipseReveal 3.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -246,4 +246,49 @@ body::after {
     color: var(--gold);
   }
 
+}
+
+
+/* --- Contact bar --- */
+.contact-bar {
+  position: fixed;
+  bottom: 1.6rem;
+  left: 2rem;
+  z-index: 101;
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  pointer-events: auto;
+  white-space: nowrap;
+  animation: fadeIn 0.7s ease-out 2.6s both;
+}
+
+.contact-bar a {
+  color: #c9a84c;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  line-height: 0;
+  transition: color 0.3s ease;
+}
+
+.contact-bar a svg {
+  width: 24px;
+  height: 24px;
+}
+
+.contact-bar a:hover,
+.contact-bar a:focus {
+  color: #e2c96a;
+}
+
+
+/* --- Reduced motion ---
+   Respect the OS "reduce motion" setting: skip the eclipse reveal and the
+   staggered nav build-up, and just show everything in its final state. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg     { animation: none; }
+  .name-core   { animation: none; }
+  .ray-link line { animation: none; stroke-dashoffset: 0; }
+  .ray-link text { animation: none; opacity: 1; }
 }

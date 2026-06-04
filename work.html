@@ -4,19 +4,175 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Work — Surya Thalli</title>
+  <meta name="description" content="Work history and experience — Surya Thalli.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Work — Surya Thalli">
+  <meta property="og:description" content="Revenue operations and financial analytics across high-growth technology.">
+  <meta property="og:image"       content="sun.jpg"><!-- replace with absolute URL on deploy -->
+  <meta name="twitter:card"       content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300&family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="pages.css">
   <style>
-    /* background3 — warm atmospheric glow, silhouettes. Bright center needs heavier overlay. */
     :root {
-      --bg-image: url('background3.png');
+      --bg-image: url('background3.jpg');
       --overlay: 0.74;
     }
-    .page-label { color: #b89556; }
-    .page-title { color: #d4bc8a; }
-    .page-note  { color: #b89556; }
+
+    /* Scrollable, centered */
+    .page {
+      justify-content: flex-start;
+      align-items: center;
+      height: auto;
+      min-height: 100vh;
+      padding-top: 8rem;
+      padding-bottom: 6rem;
+    }
+
+    .page-label { color: #b89556; font-size: 1.1rem; font-weight: 300; margin-bottom: 1.6rem; }
+
+    /* Skillset intro blurb */
+    .work-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(1.05rem, 2vw, 1.4rem);
+      color: #c3a870;
+      line-height: 1.7;
+      text-align: center;
+      max-width: min(480px, 80vw);
+      margin-bottom: 2.8rem;
+    }
+
+    /* LinkedIn link */
+    .linkedin-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-family: var(--font-arch);
+      font-weight: 300;
+      font-size: 0.82rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(184, 149, 86, 0.6);
+      text-decoration: none;
+      margin-bottom: 3rem;
+      transition: color 0.3s ease;
+    }
+
+    .linkedin-link::before { content: '—'; opacity: 0.5; font-size: 0.6rem; }
+    .linkedin-link:hover { color: #d4bc8a; }
+
+    /* ── Timeline ── */
+    .timeline {
+      position: relative;
+      padding-left: 1.6rem;
+      border-left: 1px solid rgba(184, 149, 86, 0.22);
+      width: min(480px, 80vw);
+    }
+
+    /* Era header */
+    .tl-era {
+      position: relative;
+      font-family: var(--font-arch);
+      font-weight: 300;
+      font-size: 0.68rem;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: rgba(184, 149, 86, 0.42);
+      margin-bottom: 1.8rem;
+    }
+
+    .tl-era::before {
+      content: '';
+      position: absolute;
+      left: calc(-1.6rem - 3px);
+      top: 50%;
+      transform: translateY(-50%);
+      width: 7px;
+      height: 1px;
+      background: rgba(184, 149, 86, 0.42);
+    }
+
+    /* Individual entry */
+    .tl-entry {
+      position: relative;
+      padding-bottom: 2rem;
+    }
+
+    /* Dot */
+    .tl-entry::before {
+      content: '';
+      position: absolute;
+      left: calc(-1.6rem - 3px);
+      top: 0.55rem;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #b89556;
+    }
+
+    /* Current role dot — slightly brighter */
+    .tl-entry.current::before {
+      background: #d4bc8a;
+      box-shadow: 0 0 6px rgba(212, 188, 138, 0.5);
+    }
+
+    .tl-date {
+      font-family: var(--font-arch);
+      font-weight: 300;
+      font-size: 0.66rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(184, 149, 86, 0.48);
+      margin-bottom: 0.3rem;
+    }
+
+    .tl-title {
+      font-family: var(--font-arch);
+      font-weight: 400;
+      font-size: 1rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d4bc8a;
+      margin-bottom: 0.3rem;
+    }
+
+    .tl-company {
+      font-family: var(--font-arch);
+      font-weight: 300;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      color: rgba(184, 149, 86, 0.62);
+    }
+
+    /* Divider between eras */
+    .tl-divider {
+      position: relative;
+      margin: 0.6rem 0 1.8rem;
+    }
+
+    .tl-divider::before {
+      content: '';
+      position: absolute;
+      left: calc(-1.6rem - 5px);
+      top: 50%;
+      transform: translateY(-50%);
+      width: 9px;
+      height: 1px;
+      background: rgba(184, 149, 86, 0.65);
+    }
+
+    .tl-divider-label {
+      font-family: var(--font-arch);
+      font-weight: 300;
+      font-size: 0.72rem;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: #b89556;
+    }
   </style>
 </head>
 <body>
@@ -28,11 +184,97 @@
   </a>
 
   <main class="page">
+
     <p class="page-label">— Work</p>
-    <h1 class="page-title">Work</h1>
-    <div class="page-rule"></div>
-    <p class="page-note">Case studies coming soon</p>
+
+    <p class="work-intro">
+      Revenue operations and financial analytics across high-growth technology.
+      I work at the intersection of data and decision-making — building the systems
+      that turn numbers into clarity, and clarity into action.
+    </p>
+
+    <a href="https://linkedin.com/in/sthalli/?skipRedirect=true" target="_blank" rel="noopener" class="linkedin-link">
+      LinkedIn Profile ↗
+    </a>
+
+    <div class="timeline">
+
+      <!-- Pre-professional -->
+      <p class="tl-era">Early years</p>
+
+      <div class="tl-entry">
+        <p class="tl-title">Youth</p>
+        <p class="tl-company">Music, craft, and early curiosity</p>
+      </div>
+
+      <div class="tl-entry">
+        <p class="tl-title">Private Tutor</p>
+        <p class="tl-company">One-on-one academic tutoring</p>
+      </div>
+
+      <div class="tl-entry">
+        <p class="tl-title">Guitar Teacher</p>
+        <p class="tl-company">Teaching guitar privately</p>
+      </div>
+
+      <div class="tl-entry">
+        <p class="tl-title">Pickometry</p>
+        <p class="tl-company">Founded — custom wooden guitar picks</p>
+      </div>
+
+      <!-- 2018 divider -->
+      <div class="tl-divider">
+        <span class="tl-divider-label">2018 — Present</span>
+      </div>
+
+      <div class="tl-entry">
+        <p class="tl-date">May – Dec 2021</p>
+        <p class="tl-title">Financial Analyst</p>
+        <p class="tl-company">Equinix · Intern → Part-time · Los Angeles</p>
+      </div>
+
+      <div class="tl-entry">
+        <p class="tl-date">Jan – May 2022</p>
+        <p class="tl-title">Consultant</p>
+        <p class="tl-company">Kelley Business Analytics Consulting Workshop · Bloomington, IN</p>
+      </div>
+
+      <div class="tl-entry">
+        <p class="tl-date">Aug 2022 – Nov 2023</p>
+        <p class="tl-title">Financial Analyst</p>
+        <p class="tl-company">Amazon · Los Angeles</p>
+      </div>
+
+      <div class="tl-entry">
+        <p class="tl-date">Nov 2023 – Jan 2026</p>
+        <p class="tl-title">Finance & Analytics Analyst</p>
+        <p class="tl-company">Ontic · Revenue Management · Los Angeles</p>
+      </div>
+
+      <div class="tl-entry current">
+        <p class="tl-date">Jan 2026 – Present</p>
+        <p class="tl-title">Senior RevOps Analyst</p>
+        <p class="tl-company">Checkr, Inc. · San Francisco Bay Area</p>
+      </div>
+
+    </div>
+
   </main>
+
+  <footer class="contact-bar">
+    <a href="index.html" aria-label="Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
+    </a>
+    <a href="mailto:suryathalli@gmail.com" aria-label="Contact">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+    </a>
+    <a href="https://linkedin.com/in/sthalli/?skipRedirect=true" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+    </a>
+    <a href="https://github.com/sunnny-21" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+    </a>
+  </footer>
 
   <script src="transitions.js"></script>
 </body>

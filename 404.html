@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Not Found — Surya Thalli</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&family=Cormorant+Garamond:ital,wght@1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --gold:  #c9a84c;
+    }
+
+    html, body { height: 100%; background: var(--black); }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.10;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    .page {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      gap: 1.4rem;
+    }
+
+    .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(6rem, 18vw, 12rem);
+      color: rgba(201, 168, 76, 0.18);
+      line-height: 1;
+    }
+
+    .msg {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      font-size: 0.72rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: rgba(201, 168, 76, 0.45);
+    }
+
+    .home-link {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(201, 168, 76, 0.45);
+      text-decoration: none;
+      margin-top: 0.6rem;
+      transition: color 0.3s ease;
+    }
+
+    .home-link::before { content: '— '; }
+    .home-link:hover   { color: var(--gold); }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <p class="num">404</p>
+    <p class="msg">This page doesn't exist</p>
+    <a href="index.html" class="home-link">Return home</a>
+  </main>
+</body>
+</html>
