@@ -237,11 +237,11 @@ body::after {
 
   .mobile-nav a {
     font-family: var(--font-mono);
-    font-weight: 300;
-    font-size: 0.65rem;
+    font-weight: 700;
+    font-size: 0.85rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(10, 10, 10, 0.85);
+    color: rgba(10, 10, 10, 0.9);
     text-decoration: none;
     transition: color 0.3s ease;
     padding: 0.2rem 0;
