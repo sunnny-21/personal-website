@@ -166,6 +166,11 @@ body::after {
   pointer-events: auto;
   white-space: nowrap;
   animation: fadeIn 0.7s ease-out 0.5s both;
+  background: rgba(8, 7, 3, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0.55rem 0.9rem;
+  border-radius: 10px;
 }
 
 .contact-bar a {

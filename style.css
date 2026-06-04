@@ -215,6 +215,12 @@ body::after {
     display: none;
   }
 
+  /* Shift the sun image right so the bright orb moves away from
+     the top-left name and bottom nav, making text easier to read */
+  .hero-bg {
+    background-position: 32% center;
+  }
+
   .mobile-nav {
     display: flex;
     flex-direction: row;
@@ -222,7 +228,7 @@ body::after {
     justify-content: center;
     gap: 0.4rem 1.8rem;
     position: fixed;
-    bottom: 2rem;
+    bottom: 33vh;
     left: 0;
     right: 0;
     z-index: 20;
@@ -235,7 +241,7 @@ body::after {
     font-size: 0.65rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(232, 232, 232, 0.55);
+    color: rgba(10, 10, 10, 0.85);
     text-decoration: none;
     transition: color 0.3s ease;
     padding: 0.2rem 0;
@@ -243,7 +249,7 @@ body::after {
 
   .mobile-nav a:hover,
   .mobile-nav a:focus {
-    color: var(--gold);
+    color: var(--black);
   }
 
 }
@@ -261,6 +267,11 @@ body::after {
   pointer-events: auto;
   white-space: nowrap;
   animation: fadeIn 0.7s ease-out 2.6s both;
+  background: rgba(8, 7, 3, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0.55rem 0.9rem;
+  border-radius: 10px;
 }
 
 .contact-bar a {
